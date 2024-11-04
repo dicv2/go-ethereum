@@ -250,7 +250,7 @@ func (j *scopedJournal) merge(parent *scopedJournal) {
 	if parent.refund == -1 {
 		parent.refund = j.refund
 	}
-	// Revert changes to accounts
+	// Merge changes to accounts
 	if parent.accountChanges == nil {
 		parent.accountChanges = j.accountChanges
 	} else {
@@ -262,10 +262,10 @@ func (j *scopedJournal) merge(parent *scopedJournal) {
 			parent.accountChanges[addr] = data
 		}
 	}
-	// Revert logs
+	// Merge logs
 	parent.logs = append(parent.logs, j.logs...)
 
-	// Revert access list additions
+	// Merge access list additions
 	parent.accessListAddrSlots = append(parent.accessListAddrSlots, j.accessListAddrSlots...)
 	parent.accessListAddresses = append(parent.accessListAddresses, j.accessListAddresses...)
 
@@ -289,7 +289,7 @@ func (j *scopedJournal) merge(parent *scopedJournal) {
 	if parent.tStorageChanges == nil {
 		parent.tStorageChanges = j.tStorageChanges
 	} else {
-		// Revert t-store changes
+		// Merge t-store changes
 		for addr, changes := range j.tStorageChanges {
 			prevChanges, ok := parent.tStorageChanges[addr]
 			if !ok {
