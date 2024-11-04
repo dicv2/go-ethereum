@@ -17,9 +17,10 @@
 package program
 
 import (
-	"bytes"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/vm"
+
+	"bytes"
 	"testing"
 )
 
